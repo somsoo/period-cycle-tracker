@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://period.enjoy-onepage.com/sitemap.xml
