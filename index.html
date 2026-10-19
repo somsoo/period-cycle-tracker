@@ -8,17 +8,17 @@
     <link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
     <title>생리·배란 주기 캘린더 | 예정일·가임기 예측</title>
-    <meta content="생리 예정일과 가임기·배란일을 예측하고 PMS 증상을 기록하는 무료 주기 캘린더." name="description"/>
+    <meta content="생리 예정일과 가임기·배란일을 예측하고 PMS 증상을 기록하는 무료 주기 캘린더입니다." name="description"/>
     <link href="https://period.enjoy-onepage.com/" rel="canonical"/>
     <meta content="website" property="og:type"/>
     <meta property="og:locale" content="ko_KR">
     <meta content="https://period.enjoy-onepage.com/" property="og:url"/>
-    <meta content="Period Tracker - 생리·배란 주기 캘린더" property="og:title"/>
-    <meta content="생리 예정일과 가임기를 예측하는 주기 캘린더입니다." property="og:description"/>
+    <meta content="생리·배란 주기 캘린더 | 예정일·가임기 예측" property="og:title"/>
+    <meta content="생리 예정일과 가임기·배란일을 예측하고 PMS 증상을 기록하는 무료 주기 캘린더입니다." property="og:description"/>
     <meta content="https://period.enjoy-onepage.com/og-image.png" property="og:image"/>
     <meta content="summary_large_image" name="twitter:card"/>
-    <meta content="Period Tracker - 생리·배란 주기 캘린더" name="twitter:title"/>
-    <meta content="생리 예정일과 가임기를 예측하는 주기 캘린더입니다." name="twitter:description"/>
+    <meta content="생리·배란 주기 캘린더 | 예정일·가임기 예측" name="twitter:title"/>
+    <meta content="생리 예정일과 가임기·배란일을 예측하고 PMS 증상을 기록하는 무료 주기 캘린더입니다." name="twitter:description"/>
     <meta content="https://period.enjoy-onepage.com/og-image.png" name="twitter:image"/>
     <link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 
@@ -430,11 +430,11 @@ class="manual-ad-box ad-bottom-banner" style="width: 100%; max-width: 960px; mar
             today.setHours(0,0,0,0);
             const diffDays = Math.ceil((nextPeriod - today) / (1000 * 60 * 60 * 24));
 
-            document.getElementById('ddayBadgeText').innerText = diffDays === 0 ? 'D-Day' : (diffDays > 0 ? `D-${diffDays}` : `D+${Math.abs(diffDays)}`);
-            document.getElementById('nextDateSub').innerText = `예정: ${formatDate(nextPeriod)}`;
-            document.getElementById('predNextPeriod').innerText = formatDate(nextPeriod);
-            document.getElementById('predOvulation').innerText = formatDate(ovulation);
-            document.getElementById('predFertile').innerText = `${formatDate(fertileStart)} ~ ${formatDate(fertileEnd)}`;
+            document.getElementById('ddayBadgeText').textContent = diffDays === 0 ? 'D-Day' : (diffDays > 0 ? `D-${diffDays}` : `D+${Math.abs(diffDays)}`);
+            document.getElementById('nextDateSub').textContent = `예정: ${formatDate(nextPeriod)}`;
+            document.getElementById('predNextPeriod').textContent = formatDate(nextPeriod);
+            document.getElementById('predOvulation').textContent = formatDate(ovulation);
+            document.getElementById('predFertile').textContent = `${formatDate(fertileStart)} ~ ${formatDate(fertileEnd)}`;
 
             // Upcoming 3 cycles
             const list = document.getElementById('cycleHistoryList');
