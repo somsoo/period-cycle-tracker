@@ -48,10 +48,10 @@
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "Flo 등 상용 주기 앱처럼 내 민감한 신체 정보가 광고 회사로 유출되지 않나요?",
+              "name": "내 주기 기록이 서버나 광고 회사로 전송되나요?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "절대 유출되지 않습니다. Period Tracker는 회원가입이 없고 서버 데이터베이스 자체가 존재하지 않는 100% 로컬퍼스트 웹앱입니다. 모든 기록은 사용자 기기의 브라우저 내부 메모리에만 암호화 저장됩니다."
+                "text": "아니요. 회원가입과 서버 저장이 없고, 기록은 이 브라우저의 localStorage에만 남습니다. 암호화하지는 않으므로 기기를 함께 쓴다면 브라우저의 사이트 데이터 삭제로 지울 수 있습니다. 광고 표시에는 Google 광고 쿠키가 쓰일 수 있습니다."
               }
             },
             {
@@ -59,7 +59,7 @@
               "name": "다음 생리 예정일과 가임기(배란일)는 어떤 공식으로 예측하나요?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "산부인과 표준 오기노-크라우스(Ogino-Knaus) 주기에 따라 직전 생리 시작일로부터 평균 주기(기본 28일)를 더해 다음 생리를 예측하고, 다음 생리 예정일 14일 전을 배란일로 역산하여 전후 5일을 가임기로 안내합니다."
+                "text": "최근 생리 시작일에 평균 주기(기본 28일)를 더해 다음 예정일을 잡고, 그 14일 전을 배란 예정일로 봅니다. 가임기는 배란 예정일 5일 전부터 1일 후까지 7일입니다. 흔히 달력법이라 부르는 계산이며 실제 배란일과 다를 수 있습니다."
               }
             },
             {
@@ -67,7 +67,7 @@
               "name": "주기가 불규칙한 경우에도 사용할 수 있나요?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "네, 설정에서 본인의 평균 생리 주기 일수(21~45일)와 생리 지속 기간(3~10일)을 직접 커스텀 조정할 수 있습니다."
+                "text": "평균 주기(20~50일)와 생리 기간(2~14일)을 직접 넣을 수 있습니다. 다만 주기가 불규칙하면 달력 계산의 오차가 커집니다."
               }
             }
           ]
@@ -146,13 +146,13 @@
         <div class="border-b border-slate-200 pb-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
                 <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-800 mb-2">
-                    <i class="fa-solid fa-shield-heart text-pink-600"></i><span>서버 전송 0% 완전한 프라이버시 보증</span>
+                    <i class="fa-solid fa-shield-heart text-pink-600"></i><span>서버 전송 없음 · 기록은 이 기기에만</span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     프라이버시 생리·배란 주기 캘린더
                 </h1>
                 <p class="text-slate-600 text-xs sm:text-sm mt-1">
-                    Flo 개인정보 유출 파동 대항! 회원가입 없이 브라우저에만 암호화 보관되는 안심 주기 예측 도구입니다.
+                    회원가입 없이 쓰는 주기 예측 캘린더입니다. 기록은 이 브라우저에만 저장되고 서버로 보내지 않습니다.
                 </p>
             </div>
             <!-- Next Period D-Day Badge -->
@@ -230,12 +230,12 @@
                         <div class="p-3.5 rounded-xl bg-purple-50 border border-purple-100 text-center">
                             <div class="text-[11px] font-bold text-purple-700">배란 예정일</div>
                             <div class="text-base font-extrabold text-purple-900 mt-1" id="predOvulation">-</div>
-                            <div class="text-[10px] text-purple-500 mt-0.5">임신 확률 최고</div>
+                            <div class="text-[10px] text-purple-500 mt-0.5">달력 계산 예측</div>
                         </div>
                         <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-100 text-center">
                             <div class="text-[11px] font-bold text-amber-700">임신 가능 가임기</div>
                             <div class="text-xs font-bold text-amber-900 mt-1 leading-snug" id="predFertile">-</div>
-                            <div class="text-[10px] text-amber-600 mt-0.5">피임/임신 계획 권장</div>
+                            <div class="text-[10px] text-amber-600 mt-0.5">피임 수단으로 쓰지 마세요</div>
                         </div>
                     </div>
 
@@ -261,52 +261,41 @@
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
         <div class="border-b border-slate-200 pb-4">
           <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-pink-100 text-pink-700 mb-2">
-            <span>⚖️ 2026년 대한산부인과의사회 의학 표준 기준</span>
+            <span>📅 계산 방법 안내</span>
           </div>
           <h3 class="text-xl font-black text-slate-900 tracking-tight">
-            생리 주기 및 배란일·가임기 과학적 예측 가이드
+            생리 예정일·배란일·가임기 계산 방법
           </h3>
           <p class="text-xs sm:text-sm text-slate-600 mt-1">
-            본 도구는 대한산부인과의사회 표준 월경 생리주기 가이드라인 및 오기노-크라우스(Ogino-Knaus) 주기에 기초합니다.
+            이 캘린더는 최근 생리 시작일과 평균 주기로 날짜를 계산하는 달력 방식을 씁니다. 의학 단체의 기준을 따르는 도구가 아니며, 실제 배란일은 사람과 달마다 다를 수 있습니다.
           </p>
         </div>
 
         <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
-          <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">핵심 산출 공식 (Formula & Cycle)</div>
+          <div class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">계산식</div>
           <div class="text-sm sm:text-base font-extrabold text-slate-900 font-mono leading-relaxed">
             배란일 = 다음 생리 예정일 - 14일 | 가임기 = 배란일 전 5일 ~ 배란일 후 1일 (총 7일간)
           </div>
         </div>
 
         <div class="p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-          <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">💡 실전 계산 사례 (Case Study)</div>
+          <div class="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">💡 계산 예</div>
           <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
-            예를 들어, 마지막 생리 시작일이 9월 1일이고 평균 주기가 28일인 여성의 경우 다음 생리일은 9월 29일이며, 14일을 역산한 9월 15일이 배란일이 됩니다. 이에 따라 9월 10일부터 9월 16일까지가 임신 가능성이 가장 높은 가임기로 예측됩니다.
+            예를 들어, 마지막 생리 시작일이 9월 1일이고 평균 주기가 28일인 여성의 경우 다음 생리일은 9월 29일이며, 14일을 역산한 9월 15일이 배란일이 됩니다. 가임기는 9월 10일부터 9월 16일까지로 계산됩니다. 실제 배란일은 이와 다를 수 있습니다.
           </p>
         </div>
 
         <div class="space-y-3">
           <h4 class="text-sm font-bold text-slate-900 mb-2 flex items-center gap-2"><span>❓</span> 자주 묻는 질문 (FAQ)</h4>
           
-    <!-- 심층 가이드북 바로가기 (4-1-4 헌법 준수) -->
-    <div class="mt-8 mb-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        <span class="inline-block px-3 py-1 bg-blue-600 text-white text-xs font-bold rounded-full mb-2">2026 실무 가이드</span>
-        <h3 class="text-lg font-bold text-gray-900">공식 기준과 상세 산식이 궁금하신가요?</h3>
-        <p class="text-xs text-gray-600 mt-1">프라이버시 생리·배란 주기 캘린더의 최신 법정 고시, 감면 혜택, 실무 체크리스트를 확인해보세요.</p>
-      </div>
-      <a href="/guides/guide.html" class="whitespace-nowrap px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-md transition flex items-center gap-2 text-xs shrink-0">
-        심층 가이드북 읽기 &rarr;
-      </a>
-    </div>
 
     <details class="group border border-slate-200 rounded-xl p-4">
             <summary class="flex items-center justify-between cursor-pointer font-bold text-sm text-slate-800">
-              <span>Q. Flo 등 상용 주기 앱처럼 내 민감한 신체 정보가 광고 회사로 유출되지 않나요?</span>
+              <span>Q. 내 주기 기록이 서버나 광고 회사로 전송되나요?</span>
               <span class="transition group-open:rotate-180 text-slate-400 text-xs">▼</span>
             </summary>
             <div class="text-xs text-slate-600 mt-3 leading-relaxed border-t border-slate-100 pt-3">
-              절대 유출되지 않습니다. Period Tracker는 회원가입이 없고 서버 데이터베이스 자체가 존재하지 않는 100% 로컬퍼스트 웹앱입니다. 모든 기록은 사용자 기기의 브라우저 내부 메모리에만 암호화 저장됩니다.
+              아니요. 회원가입과 서버 저장이 없고, 기록은 이 브라우저의 localStorage에만 남습니다. 암호화하지는 않으므로 기기를 함께 쓴다면 브라우저의 사이트 데이터 삭제로 지울 수 있습니다. 광고 표시에는 Google 광고 쿠키가 쓰일 수 있습니다.
             </div>
           </details>
           <details class="group border border-slate-200 rounded-xl p-4">
@@ -315,7 +304,7 @@
               <span class="transition group-open:rotate-180 text-slate-400 text-xs">▼</span>
             </summary>
             <div class="text-xs text-slate-600 mt-3 leading-relaxed border-t border-slate-100 pt-3">
-              산부인과 표준 오기노-크라우스(Ogino-Knaus) 주기에 따라 직전 생리 시작일로부터 평균 주기(기본 28일)를 더해 다음 생리를 예측하고, 다음 생리 예정일 14일 전을 배란일로 역산하여 전후 5일을 가임기로 안내합니다.
+              최근 생리 시작일에 평균 주기(기본 28일)를 더해 다음 예정일을 잡고, 그 14일 전을 배란 예정일로 봅니다. 가임기는 배란 예정일 5일 전부터 1일 후까지 7일입니다. 흔히 달력법이라 부르는 계산이며 실제 배란일과 다를 수 있습니다.
             </div>
           </details>
           <details class="group border border-slate-200 rounded-xl p-4">
@@ -324,7 +313,7 @@
               <span class="transition group-open:rotate-180 text-slate-400 text-xs">▼</span>
             </summary>
             <div class="text-xs text-slate-600 mt-3 leading-relaxed border-t border-slate-100 pt-3">
-              네, 설정에서 본인의 평균 생리 주기 일수(21~45일)와 생리 지속 기간(3~10일)을 직접 커스텀 조정할 수 있습니다.
+              평균 주기(20~50일)와 생리 기간(2~14일)을 직접 넣을 수 있습니다. 다만 주기가 불규칙하면 달력 계산의 오차가 커집니다.
             </div>
           </details>
         </div>
@@ -334,9 +323,9 @@
             <span>📋</span> 반드시 챙겨야 할 실전 체크리스트
           </h4>
           <ul class="text-xs sm:text-sm text-slate-600 space-y-2">
-            <li class="flex items-start gap-2"><span class="text-pink-600 font-bold">✓</span><span>생리 시작일 당일에 날짜를 업데이트하여 예측 알고리즘의 정확도를 유지하세요.</span></li>
-            <li class="flex items-start gap-2"><span class="text-pink-600 font-bold">✓</span><span>가임기 기간에는 임신 계획 여부에 따라 적절한 피임 또는 가임 조치를 취하세요.</span></li>
-            <li class="flex items-start gap-2"><span class="text-pink-600 font-bold">✓</span><span>생리 주기가 21일 미만이거나 45일 이상 지속되는 무월경 발생 시 산부인과 전문의 상담을 권장합니다.</span></li>
+            <li class="flex items-start gap-2"><span class="text-pink-600 font-bold">✓</span><span>생리가 시작되면 그날 날짜로 바꿔 넣고, 평균 주기는 최근 몇 달의 실제 주기를 보고 고치세요.</span></li>
+            <li class="flex items-start gap-2"><span class="text-pink-600 font-bold">✓</span><span>임신을 원하지 않는다면 이 예측과 관계없이 피임을 하세요. 달력 계산만으로는 배란일을 정확히 알 수 없습니다.</span></li>
+            <li class="flex items-start gap-2"><span class="text-pink-600 font-bold">✓</span><span>주기가 갑자기 크게 달라지거나 석 달 넘게 생리가 없거나 출혈이 심하면 산부인과 진료를 받아 보세요.</span></li>
           </ul>
         </div>
 
@@ -366,7 +355,7 @@ class="manual-ad-box ad-bottom-banner" style="width: 100%; max-width: 960px; mar
                 <span>·</span>
                 <a class="hover:text-pink-600 transition" href="/terms.html">이용약관</a>
             </div>
-            <p>100% 무서버 클라이언트 사이드 연산 | 데이터 외부 전송 제로 보증</p>
+            <p>입력한 내용은 이 브라우저에만 저장되고 서버로 보내지 않습니다.</p>
             <p class="text-[11px] text-slate-400">© 2026 Period Tracker. All rights reserved.</p>
         </div>
     </footer>
